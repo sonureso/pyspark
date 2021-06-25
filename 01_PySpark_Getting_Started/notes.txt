@@ -1,0 +1,64 @@
+====TOPICS==========
+1. Converting from python3 to python2 in Shell script.
+2. How to find the max, min, avg of a column in that DF.
+3. Create a simple PySpark DataFrame.
+4. Create a PySpark DataFrame having a schema.
+5. Adding a new column.
+6. Renaming a column.
+7. Data Type Casting in PySpark-DataFrame.
+====================
+1. Converting from python3 to python2 in Shell script.
+Ans.
+source /gpfs/users/dlka6_d/python2/bin/activate
+export PYSPARK_PYTHON=$UNXAPPLI/python2/bin/python
+====================
+2. How to find the max, min, avg of a column in that DF.
+Ans.
+print(df.agg({'year':'max'}).collect()[0][0])
+print(df.agg({'year':'min'}).collect()[0][0])
+print(df.agg({'year':'avg'}).collect()[0][0])
+====================
+3. Create a simple PySpark DataFrame.
+Ans.
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.master("local[*]").getOrCreate()
+from pyspark.sql.types import StructType,StructField, StringType, IntegerType, DoubleType
+data2 = [("James","","Smith","36636","M",3000),
+    ("Michael","Rose","","40288","M",4000),
+    ("Robert","","Williams","42114","M",4000),
+    ("Maria","Anne","Jones","39192","F",4000),
+    ("Jen","Mary","Brown","","F",-1)
+  ]
+columns = ["firstname","middlename","lastname","id","gender","salary"]
+df = spark.createDataFrame(data2,columns)
+df.printSchema()
+=====================
+4. Create a PySpark DataFrame having a schema.
+Ans.
+schema = StructType([ \
+    StructField("firstname",StringType(),True), \
+    StructField("middlename",StringType(),True), \
+    StructField("lastname",StringType(),True), \
+    StructField("id", StringType(), True), \
+    StructField("gender", StringType(), True), \
+    StructField("salary", IntegerType(), True) \
+  ])
+df = spark.createDataFrame(data=data2,schema=schema)
+df.printSchema()
+======================
+5. Adding a new column.
+Ans. 
+df = df.withColumn("salary_in_thousand",df.salary/1000)
+======================
+6. Renaming a column.
+Ans.
+df = df.withColumnRenamed("firstname","First_Name")
+======================
+7. Data Type Casting in PySpark-DataFrame.
+Ans.
+df.withColumn('salary',df.salary.cast(DoubleType())).show(2)
+======================
+
+
+
+
