@@ -1,0 +1,5 @@
+year,imdb,title,test,binary,budget,code,period code
+2013,tt1272878,2 Guns,notalk,FAIL,61000000,2013FAIL,1
+2013,tt0453562,42,men,FAIL,40000000,2013FAIL,1
+2012,tt1343727,Dredd 3D,ok-disagree,PASS,45000000,2012PASS,1
+2013,tt0454323,abcd,mennn,FAIL,400000,2013FAIL,1
